@@ -1,0 +1,30 @@
+# Makefile for OS/2 and emx+gcc
+
+.SUFFIXES: .c $O
+
+INC = -I../compat -I../afmlib -I../intl
+LIBS = ../compat/compat$A ../afmlib/afm$A ../intl/intl$A
+
+.c$O:
+	$(CC) $(CFLAGS) $(INC) -c $<
+
+#ENSCRIPT = main$O psgen$O util$O xalloc$O prt_dos$O
+ENSCRIPT = main$O psgen$O util$O prt_dos$O
+MKAFMMAP = mkafmmap$O 
+ANSI2KNR = ansi2knr$O
+
+all: enscript.exe mkafmmap.exe ansi2knr.exe
+
+enscript.exe: $(ENSCRIPT) $(LIBS)
+	$(CC) -o $@ $(ENSCRIPT) $(LFLAGS) $(LIBS)
+
+mkafmmap.exe: $(MKAFMMAP) $(LIBS)
+	$(CC) -o $@ $(MKAFMMAP) $(LFLAGS) $(LIBS)
+
+ansi2knr.exe: $(ANSI2KNR) $(LIBS)
+	$(CC) -o $@ $(ANSI2KNR) $(LFLAGS) $(LIBS)
+
+$(ENSCRIPT) $(MKAFMMAP): ../config.h
+
+clean:
+	rm -f *.o *.obj

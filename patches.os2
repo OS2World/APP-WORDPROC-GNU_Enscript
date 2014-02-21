@@ -1,0 +1,793 @@
+Only in enscript-1.5.2-os2/afmlib: Makefile.os2
+Only in enscript-1.5.2-os2: asciiscands.txt
+diff -rcb enscript-1.5.0/compat/getopt.c enscript-1.5.2-os2/compat/getopt.c
+*** enscript-1.5.0/compat/getopt.c	Tue Jul 11 22:45:48 1995
+--- enscript-1.5.2-os2/compat/getopt.c	Wed Feb  4 17:04:46 1998
+***************
+*** 62,68 ****
+--- 62,72 ----
+  /* This is for other GNU distributions with internationalized messages.
+     The GNU C Library itself does not yet support such messages.  */
+  #if HAVE_LIBINTL_H
++ # ifdef OS2
++ #  include "libgettext.h"
++ # else
+  #  include <libintl.h>
++ # endif
+  #else
+  # define gettext(msgid) (msgid)
+  #endif
+Only in enscript-1.5.2-os2/compat: Makefile.os2
+diff -rcb enscript-1.5.0/compat/regex.c enscript-1.5.2-os2/compat/regex.c
+*** enscript-1.5.0/compat/regex.c	Mon Nov 11 08:29:16 1996
+--- enscript-1.5.2-os2/compat/regex.c	Wed Feb  4 18:04:06 1998
+***************
+*** 36,42 ****
+--- 36,46 ----
+  
+  /* This is for other GNU distributions with internationalized messages.  */
+  #if HAVE_LIBINTL_H || defined (_LIBC)
++ # ifdef OS2
++ #  include "libgettext.h"
++ # else
+  #  include <libintl.h>
++ # endif
+  #else
+  # define gettext(msgid) (msgid)
+  #endif
+diff -rcb enscript-1.5.0/compat/xalloc.c enscript-1.5.2-os2/compat/xalloc.c
+*** enscript-1.5.0/compat/xalloc.c	Thu Jan 23 02:56:16 1997
+--- enscript-1.5.2-os2/compat/xalloc.c	Wed Feb  4 18:04:14 1998
+***************
+*** 41,47 ****
+  #endif /* no STDC_HEADERS */
+  
+  #if ENABLE_NLS
+! #include <libintl.h>
+  #define _(String) gettext (String)
+  #else
+  #define _(String) String
+--- 41,51 ----
+  #endif /* no STDC_HEADERS */
+  
+  #if ENABLE_NLS
+! # ifdef OS2
+! #  include "libgettext.h"
+! # else
+! #  include <libintl.h>
+! # endif
+  #define _(String) gettext (String)
+  #else
+  #define _(String) String
+Only in enscript-1.5.2-os2: config.os2
+Only in enscript-1.5.2-os2: exe
+diff -rcb enscript-1.5.0/FAQ.html enscript-1.5.2-os2/FAQ.html
+*** enscript-1.5.0/FAQ.html	Tue Feb 25 02:28:22 1997
+--- enscript-1.5.2-os2/FAQ.html	Wed Feb  4 16:59:50 1998
+***************
+*** 5,11 ****
+  <body>
+  <h1>GNU Enscript Frequently Asked Questions (FAQ)</h1>
+  
+! <address>$Id: FAQ.html,v 1.4 1997/02/25 08:28:22 mtr Exp $</address>
+  <hr>
+  
+  <center>
+--- 5,11 ----
+  <body>
+  <h1>GNU Enscript Frequently Asked Questions (FAQ)</h1>
+  
+! <address>$Id: FAQ.html,v 1.2 1998/02/04 22:59:49 tanchs1 Exp $</address>
+  <hr>
+  
+  <center>
+Only in enscript-1.5.2-os2: FILE_ID.DIZ
+diff -rcb enscript-1.5.0/genscript-vs-a2ps.html enscript-1.5.2-os2/genscript-vs-a2ps.html
+*** enscript-1.5.0/genscript-vs-a2ps.html	Fri Feb 21 03:26:58 1997
+--- enscript-1.5.2-os2/genscript-vs-a2ps.html	Wed Feb  4 18:03:36 1998
+***************
+*** 5,11 ****
+  <body>
+  
+  <h1>GNU Enscript vs. a2ps</h1>
+! <address>$Id: genscript-vs-a2ps.html,v 1.1 1997/02/12 09:40:17 mtr Exp mtr $</address>
+  <hr>
+  
+  <h2>Differences</h2>
+--- 5,11 ----
+  <body>
+  
+  <h1>GNU Enscript vs. a2ps</h1>
+! <address>$Id: genscript-vs-a2ps.html,v 1.1 1998/02/05 00:03:32 tanchs1 Exp $</address>
+  <hr>
+  
+  <h2>Differences</h2>
+diff -rcb enscript-1.5.0/genscript-vs-enscript.html enscript-1.5.2-os2/genscript-vs-enscript.html
+*** enscript-1.5.0/genscript-vs-enscript.html	Wed Feb 12 03:40:30 1997
+--- enscript-1.5.2-os2/genscript-vs-enscript.html	Wed Feb  4 18:03:38 1998
+***************
+*** 5,11 ****
+  <body>
+  
+  <h1>GNU Enscript vs. Adobe Enscript</h1>
+! <address>$Id: genscript-vs-enscript.html,v 1.1 1997/02/12 09:40:30 mtr Exp $</address>
+  <hr>
+  
+  <h2>Differences</h2>
+--- 5,11 ----
+  <body>
+  
+  <h1>GNU Enscript vs. Adobe Enscript</h1>
+! <address>$Id: genscript-vs-enscript.html,v 1.1 1998/02/05 00:03:37 tanchs1 Exp $</address>
+  <hr>
+  
+  <h2>Differences</h2>
+diff -rcb enscript-1.5.0/genscript-vs-nenscript.html enscript-1.5.2-os2/genscript-vs-nenscript.html
+*** enscript-1.5.0/genscript-vs-nenscript.html	Wed Feb 12 03:40:36 1997
+--- enscript-1.5.2-os2/genscript-vs-nenscript.html	Wed Feb  4 18:03:42 1998
+***************
+*** 5,11 ****
+  <body>
+  
+  <h1>Genscript vs. nenscript</h1>
+! <address>$Id: genscript-vs-nenscript.html,v 1.1 1997/02/12 09:40:37 mtr Exp $</address>
+  <hr>
+  
+  <h2>Differences</h2>
+--- 5,11 ----
+  <body>
+  
+  <h1>Genscript vs. nenscript</h1>
+! <address>$Id: genscript-vs-nenscript.html,v 1.1 1998/02/05 00:03:40 tanchs1 Exp $</address>
+  <hr>
+  
+  <h2>Differences</h2>
+diff -rcb enscript-1.5.0/intl/bindtextdom.c enscript-1.5.2-os2/intl/bindtextdom.c
+*** enscript-1.5.0/intl/bindtextdom.c	Tue Jan 21 08:22:48 1997
+--- enscript-1.5.2-os2/intl/bindtextdom.c	Wed Feb  4 18:48:40 1998
+***************
+*** 49,55 ****
+  /* @@ end of prolog @@ */
+  
+  /* Contains the default location of the message catalogs.  */
+! extern const char _nl_default_dirname[];
+  
+  /* List with bindings of specific domains.  */
+  extern struct binding *_nl_domain_bindings;
+--- 49,55 ----
+  /* @@ end of prolog @@ */
+  
+  /* Contains the default location of the message catalogs.  */
+! extern const char *_nl_default_dirname;
+  
+  /* List with bindings of specific domains.  */
+  extern struct binding *_nl_domain_bindings;
+***************
+*** 73,78 ****
+--- 73,81 ----
+       const char *dirname;
+  {
+    struct binding *binding;
++ 
++   if (_nl_default_dirname == NULL)
++     _nl_default_dirname = GNULOCALEDIR;
+  
+    /* Some sanity checks.  */
+    if (domainname == NULL || domainname[0] == '\0')
+diff -rcb enscript-1.5.0/intl/dcgettext.c enscript-1.5.2-os2/intl/dcgettext.c
+*** enscript-1.5.0/intl/dcgettext.c	Tue Jan 21 08:22:48 1997
+--- enscript-1.5.2-os2/intl/dcgettext.c	Wed Feb  4 18:48:44 1998
+***************
+*** 151,157 ****
+  const char *_nl_current_default_domain = _nl_default_default_domain;
+  
+  /* Contains the default location of the message catalogs.  */
+! const char _nl_default_dirname[] = GNULOCALEDIR;
+  
+  /* List with bindings of specific domains created by bindtextdomain()
+     calls.  */
+--- 151,157 ----
+  const char *_nl_current_default_domain = _nl_default_default_domain;
+  
+  /* Contains the default location of the message catalogs.  */
+! const char *_nl_default_dirname = NULL;
+  
+  /* List with bindings of specific domains created by bindtextdomain()
+     calls.  */
+***************
+*** 235,240 ****
+--- 235,243 ----
+    if (msgid == NULL)
+      return NULL;
+  
++   if (_nl_default_dirname == NULL)
++     _nl_default_dirname = GNULOCALEDIR;
++ 
+    /* If DOMAINNAME is NULL, we are interested in the default domain.  If
+       CATEGORY is not LC_MESSAGES this might not make much sense but the
+       defintion left this undefined.  */
+***************
+*** 258,264 ****
+--- 261,274 ----
+  
+    if (binding == NULL)
+      dirname = (char *) _nl_default_dirname;
++ #ifdef OS2
++ #define getcwd _getcwd2
++   /* we have to deal with drive letters here and with getcwd below */
++   else if (binding->dirname[0] == '/' || 
++ 	   isalpha(binding->dirname[0]) && binding->dirname[1] == ':')
++ #else
+    else if (binding->dirname[0] == '/')
++ #endif
+      dirname = binding->dirname;
+    else
+      {
+diff -rcb enscript-1.5.0/intl/gettext.h enscript-1.5.2-os2/intl/gettext.h
+*** enscript-1.5.0/intl/gettext.h	Tue Jan 21 08:22:50 1997
+--- enscript-1.5.2-os2/intl/gettext.h	Wed Feb  4 18:48:46 1998
+***************
+*** 25,30 ****
+--- 25,36 ----
+  # include <limits.h>
+  #endif
+  
++ #ifdef OS2
++ #define PATH_SEPARATOR ';'
++ #else
++ #define PATH_SEPARATOR ':'
++ #endif
++ 
+  /* @@ end of prolog @@ */
+  
+  /* The magic number of the GNU message catalog format.  */
+Only in enscript-1.5.2-os2/intl: gnuintl.def
+diff -rcb enscript-1.5.0/intl/libgettext.h enscript-1.5.2-os2/intl/libgettext.h
+*** enscript-1.5.0/intl/libgettext.h	Tue Jan 21 08:22:50 1997
+--- enscript-1.5.2-os2/intl/libgettext.h	Wed Feb  4 18:48:50 1998
+***************
+*** 36,41 ****
+--- 36,49 ----
+  # include <locale.h>
+  #endif
+  
++ #ifdef OS2
++ #define CheckEnv(e, d) ({char *v = getenv(e); v ? v : (d);})
++ #define StrCat(s1, s2) ({int l = strlen(s1) + strlen(s2);  \
++   char *r = malloc(l); strcpy(r, s1); strcat(r, s2); r;})
++ #define GNULOCALEDIR CheckEnv("GNULOCALEDIR","/lib/glocale")
++ #define LOCALE_ALIAS_PATH StrCat(GNULOCALEDIR, ";.")
++ #define LOCALEDIR CheckEnv("LOCALEDIR","/lib/locale")
++ #endif
+  
+  #ifdef __cplusplus
+  extern "C" {
+diff -rcb enscript-1.5.0/intl/loadmsgcat.c enscript-1.5.2-os2/intl/loadmsgcat.c
+*** enscript-1.5.0/intl/loadmsgcat.c	Tue Jan 21 08:22:50 1997
+--- enscript-1.5.2-os2/intl/loadmsgcat.c	Wed Feb  4 18:48:54 1998
+***************
+*** 38,43 ****
+--- 38,47 ----
+  #include "gettext.h"
+  #include "gettextP.h"
+  
++ #ifndef O_BINARY
++ #define O_BINARY 0
++ #endif
++ 
+  /* @@ end of prolog @@ */
+  
+  #ifdef _LIBC
+***************
+*** 58,63 ****
+--- 62,92 ----
+  int _nl_msg_cat_cntr;
+  
+  
++ #ifdef OS2
++ 
++ #include <string.h>
++ 
++ /* quick hack to at least translate german umlauts from Latin-1 to
++    Codepage 850/437 - needs to be extended to other NLS characters */
++ 
++ static char *cp850  = "\x84\x94\x81\x8E\x99\x9A\xE1";
++ static char *latin1 = "\xE4\xF6\xFC\xC4\xD6\xDC\xDF";
++ 
++ static void recode_msg (char *msg)
++ {
++   char *ptr = msg;
++   int len = strlen (msg), pos;
++ 
++   while ((pos = strcspn(ptr, latin1)) < len)
++   {
++     ptr[pos] = cp850[strchr(latin1, ptr[pos]) - latin1];
++     ptr += pos + 1;
++     len -= pos + 1;
++   }
++ }
++ 
++ #endif
++ 
+  /* Load the message catalogs specified by FILENAME.  If it is no valid
+     message catalog do nothing.  */
+  void
+***************
+*** 84,90 ****
+      return;
+  
+    /* Try to open the addressed file.  */
+!   fd = open (domain_file->filename, O_RDONLY);
+    if (fd == -1)
+      return;
+  
+--- 113,119 ----
+      return;
+  
+    /* Try to open the addressed file.  */
+!   fd = open (domain_file->filename, O_RDONLY | O_BINARY);
+    if (fd == -1)
+      return;
+  
+***************
+*** 192,197 ****
+--- 221,235 ----
+        domain_file->data = NULL;
+        return;
+      }
++ 
++ #ifdef OS2
++   {
++     int i;
++     for (i = 0; i < domain->nstrings; i++)
++       recode_msg ((char *) domain->data + W (domain->must_swap,
++ 					     domain->trans_tab[i].offset));
++   }
++ #endif
+  
+    /* Show that one domain is changed.  This might make some cached
+       translations invalid.  */
+diff -rcb enscript-1.5.0/intl/localealias.c enscript-1.5.2-os2/intl/localealias.c
+*** enscript-1.5.0/intl/localealias.c	Tue Jan 21 08:22:50 1997
+--- enscript-1.5.2-os2/intl/localealias.c	Wed Feb  4 18:48:56 1998
+***************
+*** 66,71 ****
+--- 66,76 ----
+  # endif
+  #endif
+  
++ #ifdef _LIBC
++ # include <libintl.h>
++ #else
++ # include "libgettext.h"
++ #endif
+  #include "gettext.h"
+  #include "gettextP.h"
+  
+***************
+*** 138,147 ****
+  _nl_expand_alias (name)
+      const char *name;
+  {
+!   static const char *locale_alias_path = LOCALE_ALIAS_PATH;
+    struct alias_map *retval;
+    size_t added;
+  
+    do
+      {
+        struct alias_map item;
+--- 143,155 ----
+  _nl_expand_alias (name)
+      const char *name;
+  {
+!   static const char *locale_alias_path = NULL;
+    struct alias_map *retval;
+    size_t added;
+  
++   if (locale_alias_path == NULL)
++     locale_alias_path = LOCALE_ALIAS_PATH;
++ 
+    do
+      {
+        struct alias_map item;
+***************
+*** 167,177 ****
+  	{
+  	  const char *start;
+  
+! 	  while (locale_alias_path[0] == ':')
+  	    ++locale_alias_path;
+  	  start = locale_alias_path;
+  
+! 	  while (locale_alias_path[0] != '\0' && locale_alias_path[0] != ':')
+  	    ++locale_alias_path;
+  
+  	  if (start < locale_alias_path)
+--- 175,185 ----
+  	{
+  	  const char *start;
+  
+! 	  while (locale_alias_path[0] == PATH_SEPARATOR)
+  	    ++locale_alias_path;
+  	  start = locale_alias_path;
+  
+! 	  while (locale_alias_path[0] != '\0' && locale_alias_path[0] != PATH_SEPARATOR)
+  	    ++locale_alias_path;
+  
+  	  if (start < locale_alias_path)
+Only in enscript-1.5.2-os2/intl: Makefile.os2
+Only in enscript-1.5.2-os2/lib: asciiscands.enc
+Only in enscript-1.5.2-os2/lib: enscript.os2
+Only in enscript-1.5.2-os2: Makefile.os2
+Only in enscript-1.5.2-os2: mk.cmd
+Binary files enscript-1.5.0/po/de.gmo and enscript-1.5.2-os2/po/de.gmo differ
+Binary files enscript-1.5.0/po/fi.gmo and enscript-1.5.2-os2/po/fi.gmo differ
+Binary files enscript-1.5.0/po/fr.gmo and enscript-1.5.2-os2/po/fr.gmo differ
+Binary files enscript-1.5.0/po/nl.gmo and enscript-1.5.2-os2/po/nl.gmo differ
+Binary files enscript-1.5.0/po/sl.gmo and enscript-1.5.2-os2/po/sl.gmo differ
+Only in enscript-1.5.2-os2: README.ESCAPES.uue
+Only in enscript-1.5.2-os2: README.OS2
+diff -rcb enscript-1.5.0/src/gsint.h enscript-1.5.2-os2/src/gsint.h
+*** enscript-1.5.0/src/gsint.h	Mon Feb 24 02:02:46 1997
+--- enscript-1.5.2-os2/src/gsint.h	Wed Feb  4 18:49:06 1998
+***************
+*** 113,119 ****
+  #endif
+  
+  #if ENABLE_NLS
+! #include <libintl.h>
+  #define _(String) gettext (String)
+  #else
+  #define _(String) String
+--- 113,119 ----
+  #endif
+  
+  #if ENABLE_NLS
+! #include <libgettext.h>
+  #define _(String) gettext (String)
+  #else
+  #define _(String) String
+diff -rcb enscript-1.5.0/src/main.c enscript-1.5.2-os2/src/main.c
+*** enscript-1.5.0/src/main.c	Mon Feb 24 01:51:38 1997
+--- enscript-1.5.2-os2/src/main.c	Wed Feb  4 18:49:06 1998
+***************
+*** 27,32 ****
+--- 27,44 ----
+  #include "gsint.h"
+  #include "getopt.h"
+  
++ #ifdef OS2
++   char * WildcardExpandFilename ( char * );
++ 
++ #define INCL_DOSFILEMGR   /* File Manager values */
++ #define INCL_DOSERRORS    /* DOS error values */
++ #include <os2.h>
++ 
++   void save_path_location( char *, char * );
++ 
++ #endif 
++ 
++ 
+  /*
+   * Prototypes for static functions.
+   */
+***************
+*** 1190,1201 ****
+      {
+        for (; optind < argc; optind++)
+  	{
+! 	  if (is_open (&is, NULL, argv[optind], input_filter))
+  	    {
+  	      struct stat stat_st;
+  
+  	      /* Get modification time. */
+! 	      if (stat (argv[optind], &stat_st) == 0)
+  		{
+  		  tim = stat_st.st_mtime;
+  		  tm = localtime (&tim);
+--- 1202,1226 ----
+      {
+        for (; optind < argc; optind++)
+  	{
+!           char * pszUseFile;
+!           
+! #ifdef OS2
+!           /* do file globing here ... This is a sad side effect of UNIX Shells ... */
+!           char * pszInitGlob;
+!           pszInitGlob = argv[optind];
+! 
+!           /* ..................... os2ScanFiles(pszInitGlob) ........... */
+!           while ( (pszUseFile = WildcardExpandFilename(pszInitGlob)) != NULL )
+!             {
+! #else
+!               pszUseFile = argv[optind];
+! #endif
+! 	      if (is_open (&is, NULL, pszUseFile, input_filter))
+   	        {
+  	          struct stat stat_st;
+  
+  	          /* Get modification time. */
+! 	          if (stat (pszUseFile, &stat_st) == 0)
+  		    {
+   		      tim = stat_st.st_mtime;
+  		      tm = localtime (&tim);
+***************
+*** 1208,1221 ****
+  		   */
+  		  open_output_file ();
+  
+! 		  process_file (argv[optind], &is);
+  		}
+  	      else
+! 		error (_("couldn't stat input file \"%s\": %s"), argv[optind],
+  		       strerror (errno));
+  
+  	      is_close (&is);
+  	    }
+  	}
+      }
+  
+--- 1233,1254 ----
+  		       */
+  		      open_output_file ();
+  
+! 		      process_file (pszUseFile, &is);
+  		    }
+  	          else
+! 		    error (_("couldn't stat input file \"%s\": %s"), pszUseFile,
+  		           strerror (errno));
+  
+  	          is_close (&is);
+  	        }
++ #ifdef OS2
++               pszInitGlob = NULL;
++             } /* End While Glob */
++           if (pszInitGlob && !pszUseFile)
++             {
++               fprintf( stderr, "No file found/no such file: %s\n", pszInitGlob );
++             }
++ #endif
+  	}
+      }
+  
+***************
+*** 1954,1960 ****
+  static void
+  usage ()
+  {
+!   printf (_("\
+  Usage: %s [OPTION]... [FILE]...\n\
+  Mandatory arguments to long options are mandatory for short options too.\n\
+    -1                         same as --columns=1\n\
+--- 1987,1993 ----
+  static void
+  usage ()
+  {
+!   printf (_("\n\
+  Usage: %s [OPTION]... [FILE]...\n\
+  Mandatory arguments to long options are mandatory for short options too.\n\
+    -1                         same as --columns=1\n\
+***************
+*** 2052,2056 ****
+  static void
+  version ()
+  {
+!   printf ("%s\n", version_string);
+  }
+--- 2085,2213 ----
+  static void
+  version ()
+  {
+!   printf ("\n%s\n", version_string);
+  }
++ 
++ 
++ 
++ #ifdef OS2
++ /* -------------------------------------------------------------------------- */
++ /* -------------------------------------------------------------------------- */
++ 
++ /* Boiler Plate for a 'main' routine.
++ */
++ char * WildcardExpandFilename ( char * lpszWildcard_in )
++ {
++   static char   lpszWildcard[CCHMAXPATHCOMP];
++   static char   lpszPath[CCHMAXPATHCOMP];
++   static char   lpszFileBuffer[ 1024 ];
++   static HDIR   hdirFindHandle = HDIR_SYSTEM;
++ 
++   FILEFINDBUF3  FindBuffer     = {0};      /* Returned from FindFirst/Next */
++   ULONG         ulResultBufLen = sizeof(FILEFINDBUF3);
++   ULONG         ulFindCount    = 1;        /* Look for 1 file at a time    */
++   APIRET        ApiReturn      = NO_ERROR; /* Return code                  */
++ 
++   char * pReturn = NULL;
++ 
++   if ( lpszWildcard_in )
++     {
++       strcpy ( lpszWildcard, lpszWildcard_in );
++       save_path_location ( lpszWildcard, lpszPath );
++ 
++       ApiReturn = DosFindFirst( lpszWildcard,
++                                  &hdirFindHandle,
++                                   FILE_NORMAL,
++                                    &FindBuffer,
++                                     ulResultBufLen,
++                                      &ulFindCount,
++                                       FIL_STANDARD);
++       if (ApiReturn == NO_ERROR)
++         {
++           pReturn = lpszFileBuffer;
++           sprintf( pReturn, "%s%s", lpszPath, FindBuffer.achName );
++         }
++       else
++         {
++           *lpszWildcard = '\0';
++           hdirFindHandle = HDIR_SYSTEM;
++         }
++ 
++     }
++   else if ( *lpszWildcard )
++     {
++       ulFindCount = 1;                      /* Reset find count.            */
++ 
++       ApiReturn = DosFindNext(hdirFindHandle,      /* Directory handle             */
++                                &FindBuffer,         /* Result buffer                */
++                                 ulResultBufLen,      /* Result buffer length         */
++                                  &ulFindCount);       /* Number of entries to find    */
++ 
++       if ( ApiReturn == NO_ERROR )
++         {
++           pReturn = lpszFileBuffer;
++           sprintf( pReturn, "%s%s", lpszPath, FindBuffer.achName );
++         }
++       else
++         {
++           *lpszWildcard = '\0';
++ 
++           if ( ApiReturn != ERROR_NO_MORE_FILES )
++             {
++               printf("DosFindNext error: return code = %u\n",ApiReturn);
++             }
++ 
++           /* Close our directory handle
++           */
++           ApiReturn = DosFindClose(hdirFindHandle);
++           if (ApiReturn != NO_ERROR)
++             {
++               fprintf( stderr, "   *** DosFindClose error: return code = %u\n", ApiReturn);
++             }
++ 
++           hdirFindHandle = HDIR_SYSTEM;
++         }
++     }
++   else
++     {
++       fprintf( stderr, "OS2 File Searching error/No filse found [Improper call.].\n" );
++     }
++   return pReturn;
++ }
++ 
++ void save_path_location( char * lpszArg, char *lpszDest )
++ {
++   char drive        [ _MAX_DRIVE ];
++   char path         [  _MAX_DIR  ];
++   char fname        [ _MAX_FNAME ];
++   char ext          [  _MAX_EXT  ];
++ 
++ 
++   _splitpath( lpszArg, drive, path, fname, ext);
++ 
++   if ( *drive )
++     {
++       if ( *path )
++         {
++           sprintf( lpszDest, "%s%s", drive, path );
++         }
++       else
++         {
++           sprintf( lpszDest, "%s", drive );
++         }
++     }
++   else if ( *path )
++     {
++       sprintf( lpszDest, "%s", path );
++     }
++   else
++     {
++       strcpy( lpszDest, "" );
++     }
++ 
++ /*fprintf( stderr, "'%s': -> [%s %s %s %s] (%s)\n", lpszArg, drive, path, fname, ext, lpszDest );
++ */
++ 
++ }
++ 
++ #endif
+Only in enscript-1.5.2-os2/src: Makefile.os2
+diff -rcb enscript-1.5.0/src/mkafmmap.c enscript-1.5.2-os2/src/mkafmmap.c
+*** enscript-1.5.0/src/mkafmmap.c	Mon Jan 13 09:06:26 1997
+--- enscript-1.5.2-os2/src/mkafmmap.c	Wed Feb  4 18:49:10 1998
+***************
+*** 39,45 ****
+  #endif
+  
+  #if ENABLE_NLS
+! #include <libintl.h>
+  #define _(String) gettext (String)
+  #else
+  #define _(String) String
+--- 39,49 ----
+  #endif
+  
+  #if ENABLE_NLS
+! # ifdef OS2
+! #  include "libgettext.h"
+! # else
+! #  include <libintl.h>
+! # endif
+  #define _(String) gettext (String)
+  #else
+  #define _(String) String
+***************
+*** 168,173 ****
+--- 172,183 ----
+  	  break;
+  	}
+      }
++ 
++   if (optind == argc)
++   {
++     usage ();
++     exit (0);
++   }
+  
+    /* Open output file. */
+    printf (_("file=%s\n"), fname ? fname : _("stdout"));
+diff -rcb enscript-1.5.0/src/psgen.c enscript-1.5.2-os2/src/psgen.c
+*** enscript-1.5.0/src/psgen.c	Thu Feb 20 07:37:18 1997
+--- enscript-1.5.2-os2/src/psgen.c	Wed Feb  4 18:49:16 1998
+***************
+*** 666,683 ****
+  		  page_clear = 0;
+  		}
+  
+  	      /* Print line numbers if needed. */
+  	      if (line_numbers && line_column == 0 && token.type != tFORMFEED)
+  		print_line_number (lx, y, linenumber_space, linenumber_margin,
+  				   current_file_linenum);
+  
+- 	      /* Print line highlight. */
+- 	      if (line_column == 0 && line_highlight_gray < 1.0)
+- 		output ("%g %g %g %g %g line_highlight\n",
+- 			lx, (y - baselineskip
+- 			     + (font_bbox_lly * Fpt.h / UNITS_PER_POINT)),
+- 			linewidth, Fpt.h + baselineskip, line_highlight_gray);
+- 
+  	      /* Check rest of tokens. */
+  	      switch (token.type)
+  		{
+--- 666,685 ----
+  		  page_clear = 0;
+  		}
+  
++ 	      /* Print line highlight. */
++               if (line_column == 0 && line_highlight_gray < 1.0)
++                 output ("%g %g %g %g %g line_highlight\n",
++                         line_numbers ? x : lx,
++                         (y + baselineskip + (font_bbox_lly * Fpt.h / UNITS_PER_POINT)),
++                         linewidth, 
++                         Fpt.h + baselineskip, 
++                         line_highlight_gray );
++ 
+                /* Print line numbers if needed. */
+  	      if (line_numbers && line_column == 0 && token.type != tFORMFEED)
+  		print_line_number (lx, y, linenumber_space, linenumber_margin,
+  				   current_file_linenum);
+  
+  	      /* Check rest of tokens. */
+  	      switch (token.type)
+  		{
+Only in enscript-1.5.2-os2/src: testcase.sh
+Only in enscript-1.5.2-os2/src: xalloc.c
+Binary files enscript-1.5.0/TODO and enscript-1.5.2-os2/TODO differ

@@ -1,0 +1,12 @@
+LIBRARY GNUINTL INITGLOBAL
+DESCRIPTION 'GNU gettext (i18n/l10n) library'
+DATA MULTIPLE NONSHARED
+
+EXPORTS
+  _nl_msg_cat_cntr    @1
+  bindtextdomain      @2
+  textdomain          @3
+  gettext             @4
+  dgettext            @5
+  dcgettext           @6
+  dcgettext__         @7

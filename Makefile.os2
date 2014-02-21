@@ -1,0 +1,34 @@
+# Makefile for OS/2 and emx+gcc
+
+SUBDIRS = compat afm afmlib lib scripts intl src po
+
+release:
+	$(MAKE) -f Makefile.os2 intl-dll all \
+	CC="gcc -Zomf -O" O=".obj" A=".lib" AR="emxomfar" \
+	CFLAGS="-DOS2 -DHAVE_CONFIG_H -I.. -I. -I../intl" \
+	LFLAGS="-s -Zcrtdll -Zstack 512 -lsocket" \
+	DLFLAGS="-s -Zcrtdll -Zdll"
+debug:
+	$(MAKE) -f Makefile.os2 intl all \
+	CC="gcc -g" O=".o" A=".a" AR="ar" \
+	CFLAGS="-DOS2 -DHAVE_CONFIG_H -I.. -I." \
+	LFLAGS=" -lsocket"
+
+intl: config.h
+	cd intl & $(MAKE) lib -f Makefile.os2
+intl-dll: config.h
+	cd intl & $(MAKE) dll -f Makefile.os2
+all: config.h
+	cd compat & $(MAKE) all -f Makefile.os2
+	cd afmlib & $(MAKE) all -f Makefile.os2
+	cd src & $(MAKE) all -f Makefile.os2
+
+config.h: config.os2
+	copy config.os2 $@
+
+clean:
+	rm -f config.h
+	cd intl & $(MAKE) clean -f Makefile.os2
+	cd compat & $(MAKE) clean -f Makefile.os2
+	cd afmlib & $(MAKE) clean -f Makefile.os2
+	cd src & $(MAKE) clean -f Makefile.os2

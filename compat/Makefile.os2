@@ -1,0 +1,21 @@
+# Makefile for OS/2 and emx+gcc
+
+OBJECTS = getopt$O getopt1$O xalloc$O
+
+.SUFFIXES: .c $O
+
+.c$O:
+	$(CC) $(CFLAGS) -c $<
+
+all: compat$A
+
+$(OBJECTS): ../config.h
+
+compat$A: $(OBJECTS)
+	-del $@
+	$(AR) cru $@ $(OBJECTS)
+	$(AR) s $@
+
+clean:
+	rm -f *.o *.obj compat.a compat.lib
+

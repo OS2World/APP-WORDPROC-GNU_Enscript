@@ -1,0 +1,87 @@
+To: Markku Rossi <mtr@iki.fi>
+Subject: Patch for --line-number and ^@shade{#}
+From: Shaun Tancheff <shaun@primenet.com>
+
+mtr,
+
+I have a working 1.4.0 version of GNU Enscript (Ported to OS/2) 
+and this patch is based it. 
+
+Since 1.5.0 appears to still be using the same method as 1.4.0, 
+I thought you may appreciate it.
+
+Bug:
+When printing line numbers *and* handling an ESCAPE for shade{#}:
+the shade{#} overlays the line number.
+
+Current operation (1.4.0):
+----[Snip]----
+24 519 M (17:) s
+5 513.49 554 11 0.95 line_highlight
+48 519 M
+(SOME ASCII TEXT) s
+24 508 M (18:) s
+48 508 M
+----[Snip]----
+
+Patched operation (1.4.patch):
+----[Snip]----
+48 515.49 554 11 0.95 line_highlight
+24 519 M (17:) s
+48 519 M
+( *   ECP: None) s
+24 508 M (18:) s
+48 508 M
+----[Snip]----
+
+As you can see I did two things:
+  - Moved line highlight to occur before the line number is printed.
+   + Modified line_highlight upward slightly 
+       (attempting to center it vertically, this may be font specific.)
+   + Modified line_highlight to start right of line_number (if used).
+
+HTH
+
+--Shaun
+
+Context diff follows:
+-------------------------------- Cut Here -------------------------------
+*** src/psgen.c	Tue Feb  3 22:20:48 1998
+--- src/psgen.org	Thu Feb 20 07:37:18 1997
+***************
+*** 666,682 ****
+  		  page_clear = 0;
+  		}
+  
+- 	      /* Print line highlight. */
+- 	      if (line_column == 0 && line_highlight_gray < 1.0)
+- 		output ("%g %g %g %g %g line_highlight\n",
+-                         line_numbers ? x : lx, 
+-                         (y + baselineskip + (font_bbox_lly * Fpt / UNITS_PER_POINT)),
+- 			linewidth, Fpt + baselineskip, line_highlight_gray);
+- 
+  	      /* Print line numbers if needed. */
+  	      if (line_numbers && line_column == 0 && token.type != tFORMFEED)
+  		print_line_number (lx, y, linenumber_space, linenumber_margin,
+  				   current_file_linenum);
+  
+  	      /* Check rest of tokens. */
+  	      switch (token.type)
+--- 666,682 ----
+  		  page_clear = 0;
+  		}
+  
+  	      /* Print line numbers if needed. */
+  	      if (line_numbers && line_column == 0 && token.type != tFORMFEED)
+  		print_line_number (lx, y, linenumber_space, linenumber_margin,
+  				   current_file_linenum);
++ 
++ 	      /* Print line highlight. */
++ 	      if (line_column == 0 && line_highlight_gray < 1.0)
++ 		output ("%g %g %g %g %g line_highlight\n",
++ 			lx, (y - baselineskip
++ 			     + (font_bbox_lly * Fpt.h / UNITS_PER_POINT)),
++ 			linewidth, Fpt.h + baselineskip, line_highlight_gray);
+  
+  	      /* Check rest of tokens. */
+  	      switch (token.type)

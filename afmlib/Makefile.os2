@@ -1,0 +1,21 @@
+# Makefile for OS/2 and emx+gcc
+
+OBJECTS = afm$O afmparse$O strhash$O enc_iso$O enc_iso2$O enc_iso3$O enc_iso5$O \
+   	  enc_pc$O enc_mac$O enc_vms$O enc_hp8$O enc_koi8$O deffont$O
+
+.SUFFIXES: .c $O
+
+.c$O:
+	$(CC) $(CFLAGS) -c $<
+
+all: afm$A
+
+$(OBJECTS): ../config.h
+
+afm$A: $(OBJECTS)
+	-del $@
+	$(AR) cru $@ $(OBJECTS)
+	$(AR) s $@
+
+clean:
+	rm -f *.o *.obj afm.a afm.lib

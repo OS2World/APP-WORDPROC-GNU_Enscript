@@ -1,0 +1,30 @@
+# Makefile for OS/2 and emx+gcc
+
+OBJECTS = bindtextdom$O dcgettext$O dgettext$O gettext$O \
+	finddomain$O loadmsgcat$O localealias$O textdomain$O \
+	l10nflist$O explodename$O intl-compat$O
+
+.SUFFIXES: .c $O
+
+.c$O:
+	$(CC) $(CFLAGS) -c $<
+
+.PHONY: lib dll
+lib: intl.a
+dll: gnuintl.dll intl.lib
+
+$(OBJECTS): ../config.h
+
+intl.a: $(OBJECTS)
+	-del $@
+	$(AR) cru $@ $(OBJECTS)
+	$(AR) s $@
+
+intl.lib: gnuintl.def
+	emximp -o $@ gnuintl.def
+
+gnuintl.dll: gnuintl.def $(OBJECTS)
+	$(CC) gnuintl.def -o $@ $(OBJECTS) $(DLFLAGS)
+
+clean:
+	rm -f *.o *.obj *.a *.lib

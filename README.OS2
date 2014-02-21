@@ -1,0 +1,48 @@
+This copy of GNU enscript 1.5.0 has been compiled for OS/2 using
+the emx 0.9c patch level 2 development tools. 
+
+I made a minor fix/change that modifies the <ESC>shade{#} to work
+better with line numbering. 
+
+This port was made quite simple by re-applying Kai Uwe Rommel's 
+1.4.0 patches onto the 1.5.0 sources. I believe the intl library
+to be in working condition, but I only know english.
+
+Intstallion should remain unchanged.
+
+ http://www.primenet.com/~shaun/home/       /?/                 -_-
+  :-) shaun ;-] shaun@primenet.com (Shaun Tancheff) .sigs freed
+---------------------------------------------------------------------------
+This copy of the GNU enscript 1.4.0 has been compiled for OS/2
+using the emx 0.9b development tools. 
+
+An up to date copy should always be available as
+
+  ftp://ftp.leo.org/pub/comp/os/os2/gnu/doc/gnuenscript.zip
+
+To install, copy the two exe files and the DLL into suitable places.
+Make a data directory for the enscript data files then and let the 
+environment variable ENSCRIPT_LIBRARY point to it. Copy enscript.cfg 
+there, then the contents of the lib subdirectory. Make there a 
+subdirectory afm and copy the contents of the afm subdirectory of
+the distribution there. Edit enscript.cfg as suitable. Oh, and, yes, 
+read the manual page.
+
+This version supports internationalization. To use it, set the
+LANGUAGE environment variable (for german messages, set it to "de").
+
+For that to work, you must set the LOCALEDIR environment variable to
+point to the base locale directory (default is /lib/locale). Into this
+directory, you must copy po/de.gmo (german message catalog, for
+example) from the distribution as de/LC_MESSAGES/enscript.mo and so
+on for other languages.
+
+Kai Uwe Rommel
+
+--
+/* Kai Uwe Rommel      ARS Computer & Consulting GmbH, Muenchen, Germany *
+ * rommel@ars.de             CompuServe 100265,2651, Fax +49 89 324 4524 *
+ * rommel@leo.org (ftp://ftp.leo.org/pub/comp/os/os2 maintenance)        */
+
+DOS ... is still a real mode only non-reentrant interrupt
+handler, and always will be.                -Russell Williams
